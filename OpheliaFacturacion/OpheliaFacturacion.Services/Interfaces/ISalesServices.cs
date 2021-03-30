@@ -11,8 +11,8 @@ namespace OpheliaFacturacion.Services.interfaces
         #region clientes
         Task<List<Cliente>> getCliente();
         Task<List<Cliente>> createCliente(Cliente prmCliente);
-        Task<Cliente> updateProduct(Cliente prmFactura);
-        Task<Cliente> deleteProduct(Cliente prmFactura);
+        Task<Cliente> updateCliente(Cliente prmFactura);
+        Task<Cliente> deleteCliente(Cliente prmFactura);
         #endregion
 
         #region Factura

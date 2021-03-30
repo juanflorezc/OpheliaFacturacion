@@ -91,5 +91,71 @@ namespace OpheliaFacturacion.Controllers
             }
         }
         #endregion
+
+        #region Inventario
+        [HttpPost]
+        [Route("Inventario")]
+        public async Task<IActionResult> createInventario(Inventario prmP)
+        {
+            try
+            {
+                var response = await invenotryServices.createIntentario(prmP);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(LogEvents.ExeptionError, ex, "Error Exception");
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPut]
+        [Route("Inventario")]
+        public async Task<IActionResult> updateInventario(Inventario prmP)
+        {
+            try
+            {
+                var response = await invenotryServices.updateInventario(prmP);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(LogEvents.ExeptionError, ex, "Error Exception");
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpDelete]
+        [Route("Inventario")]
+        public async Task<IActionResult> deleteInventario(Inventario prmP)
+        {
+            try
+            {
+                var response = await invenotryServices.deleteInventario(prmP);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(LogEvents.ExeptionError, ex, "Error Exception");
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpGet]
+        [Route("Inventario")]
+        public async Task<IActionResult> getInventario()
+        {
+            try
+            {
+                var response = await invenotryServices.getIntentario();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(LogEvents.ExeptionError, ex, "Error Exception");
+                return BadRequest(ex.ToString());
+            }
+        }
+        #endregion
     }
 }

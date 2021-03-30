@@ -55,7 +55,7 @@ namespace OpheliaFacturacion.Services
             return new FacturaDetalle();
         }
 
-        public async Task<Cliente> deleteProduct(Cliente prmFactura)
+        public async Task<Cliente> deleteCliente(Cliente prmFactura)
         {
             _context.Clientes.Remove(prmFactura);
             _context.SaveChanges();
@@ -91,7 +91,7 @@ namespace OpheliaFacturacion.Services
             return prmFactura;
         }
 
-        public async Task<Cliente> updateProduct(Cliente prmCliente)
+        public async Task<Cliente> updateCliente(Cliente prmCliente)
         {
             _context.Clientes.Add(prmCliente);
             _context.SaveChanges();
