@@ -6,13 +6,13 @@ export class Cliente {
 
 export class Producto {
     ProductoId:number;
-    Nombres:string;
-    ValorUnitario:any;
+    Nombre:string;
+    ValorUnitario:number;
 }
 
 export class Inventario {
     InventarioId:number;
-    CantidadActual:any;
+    CantidadActual:number;
     ProductoId:any;
     Producto:Producto[];
 }

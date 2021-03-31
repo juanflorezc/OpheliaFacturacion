@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryServicesService } from 'src/app/_services/inventory-services.service';
 import { environment } from 'src/environments/environment';
+import 'devextreme/data/odata/store';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Producto } from 'src/app/_models/models';
 
 @Component({
   selector: 'app-producto',
@@ -11,25 +14,11 @@ export class ProductoComponent implements OnInit {
 
   dataSource: any;
   priority: any[];
+  emailControl: AbstractControl;
+  myForm: FormGroup;
+  
   constructor(private inventoryServices: InventoryServicesService) { 
-    this.dataSource={
-      store: {
-        type: 'odata',
-        key: 'Task_ID',
-        url: "https://js.devexpress.com/Demos/DevAV/odata/Tasks"
-      },
-      expand: 'ResponsibleEmployee',
-      select: [
-        'Task_ID',
-        'Task_Subject',
-        'Task_Start_Date',
-        'Task_Due_Date',
-        'Task_Status',
-        'Task_Priority',
-        'Task_Completion',
-        'ResponsibleEmployee/Employee_Full_Name'
-      ]
-    };
+    
     this.priority = [
       { name: 'High', value: 4 },
       { name: 'Urgent', value: 3 },
@@ -39,27 +28,35 @@ export class ProductoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.myForm = new FormGroup({
+        nombre: new FormControl('', Validators.compose([Validators.required])),
+        valorUnitario: new FormControl('', Validators.compose([Validators.required]))
+    });
+  this.emailControl = this.myForm.controls['email'];
     this.inventoryServices.getProducto().subscribe(response=>    {
-      this.dataSource={
-        store: {
-          type: 'odata',
-          key: 'Task_ID',
-          url: "https://js.devexpress.com/Demos/DevAV/odata/Tasks"
-        },
-        //expand: 'ResponsibleEmployee',
-        select: [
-          'Task_ID',
-          'Task_Subject',
-          'Task_Start_Date',
-          'Task_Due_Date',
-          'Task_Status',
-          'Task_Priority',
-          'Task_Completion',
-          'ResponsibleEmployee/Employee_Full_Name'
-        ]
-      };;      
+      this.dataSource=response
     }
     );
+  }
+
+  
+
+  onsubmit()
+  {
+    let producto=new Producto();
+    producto.Nombre=this.myForm.get("nombre").value;
+    producto.ValorUnitario=parseFloat(this.myForm.get("valorUnitario").value);    
+    this.inventoryServices.createProducto(producto).subscribe(response=>{
+      console.log(response);
+      if(response.length>0)
+      {
+        alert("Registro almacenado correctamente");
+        this.dataSource=this.dataSource=response;
+      }
+      else{
+        alert("Error");
+      }
+    });
   }
 
 }

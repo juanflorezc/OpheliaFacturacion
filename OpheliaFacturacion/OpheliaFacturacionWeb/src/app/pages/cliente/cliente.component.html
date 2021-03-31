@@ -1,4 +1,48 @@
 <h2 class="content-block">Cliente</h2>
+<div class="content-block dx-card responsive-paddings">
+    <form [formGroup]="myForm">
+        Nombre:<dx-text-box
+            name="nombres"
+            formControlName="nombres"
+            >
+        </dx-text-box>
+        fecha Nacimiento:<dx-text-box
+            name="fechaNacimiento"
+            formControlName="fechaNacimiento"
+            >
+        </dx-text-box>
+        <dx-button
+            text="enviar"
+            (onClick)="onsubmit()">
+        </dx-button>
+    </form>
+  </div>
 <div class="content-block">
-    <div class="dx-card responsive-paddings">Put your content here</div>
+    <dx-data-grid class="dx-card wide-card"
+    [dataSource]="dataSource"
+    [showBorders]="false"
+    [focusedRowEnabled]="true"
+    [focusedRowIndex]="0"
+    [columnAutoWidth]="true"
+    keyExpr="ClienteId"
+    [columnHidingEnabled]="true">
+
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [useIcons]="true"></dxo-editing>    
+    <dxi-column
+        dataField="Nombres"
+        caption="Nombres">
+    </dxi-column>
+    <dxi-column
+        dataField="FechaNacimiento"
+        caption="Fecha nacimiento">
+    </dxi-column>
+    <dxi-column type="buttons" caption="Acciones">
+        <button name="editar" caption="Editar">Editar</button>
+        <button name="borrar">Eliminar</button>        
+    </dxi-column>
+    
+    </dx-data-grid>
 </div>

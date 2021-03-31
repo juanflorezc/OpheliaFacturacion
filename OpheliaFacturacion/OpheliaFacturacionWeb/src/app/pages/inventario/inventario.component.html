@@ -1,4 +1,53 @@
 <h2 class="content-block">Inventario</h2>
+<div class="content-block dx-card responsive-paddings">
+    <form [formGroup]="myForm">
+        <dx-select-box
+                [items]="simpleProducts"
+                placeholder="Selecciona Producto"
+                [showClearButton]="true"
+                formControlName="producto"
+            ></dx-select-box>
+        Cantidad actual:<dx-text-box
+            name="cantidad"
+            formControlName="cantidad"
+            >
+        </dx-text-box>
+        <dx-button
+            text="enviar"
+            (onClick)="onsubmit()">
+        </dx-button>
+    </form>
+  </div>
 <div class="content-block">
-    <div class="dx-card responsive-paddings">Put your content here</div>
+    <dx-data-grid class="dx-card wide-card"
+    [dataSource]="dataSource"
+    [showBorders]="false"
+    [focusedRowEnabled]="true"
+    [focusedRowIndex]="0"
+    [columnAutoWidth]="true"
+    keyExpr="ProductoId"
+    [columnHidingEnabled]="true">
+
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [useIcons]="true"></dxo-editing>
+    <dxi-column
+        dataField="ProductoId">
+    </dxi-column>
+    <dxi-column
+        dataField="Nombre"
+        caption="Nombre">
+    </dxi-column>
+    <dxi-column
+        dataField="ValorUnitario"
+        caption="Valor Unitario">
+    </dxi-column>
+    <dxi-column type="buttons" caption="Acciones">
+        <button name="editar" caption="Editar">Editar</button>
+        <button name="borrar">Eliminar</button>        
+    </dxi-column>
+    
+    </dx-data-grid>
 </div>
+

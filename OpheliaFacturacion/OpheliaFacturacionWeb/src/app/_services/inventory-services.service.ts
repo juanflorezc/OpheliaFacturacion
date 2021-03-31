@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Producto,Cliente } from '../_models/models';
+import { Producto,Cliente, Inventario } from '../_models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -25,21 +25,21 @@ export class InventoryServicesService {
   deleteProducto(producto:Producto) {
     return this.http.delete<any>(`${environment.apiUrl}inventory/Producto`)
   }
-
-  getCliente()
+  getInventario()
   {    
-    return this.http.get<any>(`${environment.apiUrl}inventory/Cliente`)
+    return this.http.get<any>(`${environment.apiUrl}inventory/Inventario`)
   }
 
-  createCliente(Cliente:Cliente) {
-    return this.http.post<any>(`${environment.apiUrl}inventory/Cliente`,Cliente)
+  createInventario(Inventario:Inventario) {
+    return this.http.post<any>(`${environment.apiUrl}inventory/Inventario`,Inventario)
   }
 
-  updateCliente(Cliente:Cliente) {
-    return this.http.put<any>(`${environment.apiUrl}inventory/Cliente`,Cliente)
+  updateInventario(Inventario:Inventario) {
+    return this.http.put<any>(`${environment.apiUrl}inventory/Inventario`,Inventario)
   }
 
-  deleteCliente(Cliente:Cliente) {
-    return this.http.delete<any>(`${environment.apiUrl}inventory/Cliente`)
+  deleteInventario(Inventario:Inventario) {
+    return this.http.delete<any>(`${environment.apiUrl}inventory/Inventario`)
   }
+  
 }

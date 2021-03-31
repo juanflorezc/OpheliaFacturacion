@@ -5,11 +5,14 @@ import { AuthGuardService } from './shared/services';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
-import { DxDataGridModule, DxFormModule,DxButtonModule  } from 'devextreme-angular';
+import { DxDataGridModule, DxFormModule,DxButtonModule, DxTextBoxModule, DxSelectBoxModule  } from 'devextreme-angular';
 import { ClienteComponent } from './pages/cliente/cliente.component';
 import { FacturaComponent } from './pages/factura/factura.component';
 import { InventarioComponent } from './pages/inventario/inventario.component';
 import { ProductoComponent } from './pages/producto/producto.component';
+import dxTextBox from 'devextreme/ui/text_box';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import dxSelectBox from 'devextreme/ui/select_box';
 
 const routes: Routes = [
   {
@@ -74,9 +77,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule,DxButtonModule ],
+  imports: [RouterModule.forRoot(routes), DxDataGridModule, DxFormModule,DxButtonModule,DxTextBoxModule,FormsModule ,
+    ReactiveFormsModule,DxSelectBoxModule ],
   providers: [AuthGuardService],
   exports: [RouterModule],
-  declarations: [HomeComponent, ProfileComponent, TasksComponent, ClienteComponent]
+  declarations: [HomeComponent, ProfileComponent, TasksComponent, ClienteComponent,ProductoComponent,FacturaComponent,InventarioComponent]
 })
 export class AppRoutingModule { }
