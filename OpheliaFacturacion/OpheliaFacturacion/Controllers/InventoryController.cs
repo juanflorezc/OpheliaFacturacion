@@ -68,7 +68,7 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpDelete]
         [Route("Producto")]
-        public async Task<IActionResult> delete([FromBody]int key)
+        public async Task<IActionResult> delete([FromForm]int key)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpDelete]
         [Route("Inventario")]
-        public async Task<IActionResult> deleteInventario([FromBody] int key)
+        public async Task<IActionResult> deleteInventario([FromForm] int key)
         {
             try
             {
