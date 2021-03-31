@@ -40,24 +40,26 @@ namespace OpheliaFacturacion.Services
         }
     
 
-        public async Task<Factura> deleteFactura(Factura prmFactura)
+        public async Task<Factura> deleteFactura(int key)
         {
-            
+            var prmFactura = _context.Facturas.Find(key);
             _context.Facturas.Remove(prmFactura);
             _context.SaveChanges();
             return new Factura();
         }
 
-        public async Task<FacturaDetalle> deleteFacturaDetalle(FacturaDetalle prmFactura)
+        public async Task<FacturaDetalle> deleteFacturaDetalle(int key)
         {
+            var prmFactura = _context.FacturaDetalles.Find(key);
             _context.FacturaDetalles.Remove(prmFactura);
             _context.SaveChanges();
             return new FacturaDetalle();
         }
 
-        public async Task<Cliente> deleteCliente(Cliente prmFactura)
+        public async Task<Cliente> deleteCliente(int key)
         {
-            _context.Clientes.Remove(prmFactura);
+            var prmCliente = _context.Clientes.Find(key);
+            _context.Clientes.Remove(prmCliente);
             _context.SaveChanges();
             return new Cliente();
         }
@@ -77,23 +79,34 @@ namespace OpheliaFacturacion.Services
             return _context.FacturaDetalles.ToList();
         }
 
-        public async Task<Factura> updateFactura(Factura prmFactura)
+        public async Task<Factura> updateFactura(int key,Factura prmFactura)
         {
-            _context.Facturas.Update(prmFactura);
+            var facturaAntiguo = _context.Facturas.Find(key);
+            facturaAntiguo.ClienteId = prmFactura.ClienteId == null ? facturaAntiguo.ClienteId : prmFactura.ClienteId;
+            facturaAntiguo.FechaCompra = prmFactura.FechaCompra == null ? facturaAntiguo.FechaCompra : prmFactura.FechaCompra;
+            facturaAntiguo.FacturaDetalles = prmFactura.FacturaDetalles == null ? facturaAntiguo.FacturaDetalles : prmFactura.FacturaDetalles;
+            _context.Facturas.Update(facturaAntiguo);
             _context.SaveChanges();
             return prmFactura;
         }
 
-        public async Task<FacturaDetalle> updateFacturaDetalle(FacturaDetalle prmFactura)
+        public async Task<FacturaDetalle> updateFacturaDetalle(int key, FacturaDetalle prmFactura)
         {
-            _context.FacturaDetalles.Update(prmFactura);
+            var facturaAntiguo = _context.FacturaDetalles.Find(key);
+            facturaAntiguo.ProductoId = prmFactura.ProductoId == null ? facturaAntiguo.ProductoId : prmFactura.ProductoId;
+            facturaAntiguo.Cantidad = prmFactura.Cantidad == null ? facturaAntiguo.Cantidad : prmFactura.Cantidad;
+
+            _context.FacturaDetalles.Update(facturaAntiguo);
             _context.SaveChanges();
             return prmFactura;
         }
 
-        public async Task<Cliente> updateCliente(Cliente prmCliente)
+        public async Task<Cliente> updateCliente(int key, Cliente prmCliente)
         {
-            _context.Clientes.Add(prmCliente);
+            var ClienteAntiguo = _context.Clientes.Find(key);
+            ClienteAntiguo.Nombres = prmCliente.Nombres == null ? ClienteAntiguo.Nombres : prmCliente.Nombres;
+            ClienteAntiguo.FechaNacimiento = prmCliente.FechaNacimiento == null ? ClienteAntiguo.FechaNacimiento : prmCliente.FechaNacimiento;
+            _context.Clientes.Update(ClienteAntiguo);
             _context.SaveChanges();
             return prmCliente;
         }

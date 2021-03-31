@@ -1,4 +1,4 @@
-<h2 class="content-block">Factura</h2>
+<h2 class="content-block">Detalle Factura</h2>
 
 <div class="content-block">
     <dx-data-grid class="dx-card wide-card"
@@ -7,7 +7,7 @@
     [focusedRowEnabled]="true"
     [focusedRowIndex]="0"
     [columnAutoWidth]="true"
-    keyExpr="FacturaId"
+    keyExpr="FacturaDetalleId"
     [columnHidingEnabled]="true"
     [remoteOperations]="true">
 
@@ -17,13 +17,18 @@
     <dxo-editing mode="row" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true" [useIcons]="true"></dxo-editing>
 
     <dxi-column
-        dataField="ClienteId"
-        caption="Cliente" dataType="number">
-        <dxo-lookup [dataSource]="ClientesData" valueExpr="ClienteId" displayExpr="Nombres"></dxo-lookup>
+        dataField="FacturaId"
+        caption="Factura" dataType="number">
+        <dxo-lookup [dataSource]="FacturaData" valueExpr="FacturaId" displayExpr="FechaCompra"></dxo-lookup>
     </dxi-column>
     <dxi-column 
-        dataField="FechaCompra"
-        caption="Fecha de Compra" dataType="date">
+        dataField="ProductoId"
+        caption="Producto" dataType="number">
+        <dxo-lookup [dataSource]="ProductoData" valueExpr="ProductoId" displayExpr='Nombre'></dxo-lookup>
+    </dxi-column>
+    <dxi-column 
+        dataField="Cantidad"
+        caption="Cantidad" dataType="number">
     </dxi-column>
     <dxi-column type="buttons" caption="Acciones">
         <button name="editar" caption="Editar">Editar</button>
@@ -32,3 +37,4 @@
     
     </dx-data-grid>
 </div>
+

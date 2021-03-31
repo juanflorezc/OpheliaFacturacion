@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/_models/models';
 import { InventoryServicesService } from 'src/app/_services/inventory-services.service';
 import { SalesServicesService } from 'src/app/_services/sales-services.service';
+import { environment } from 'src/environments/environment';
+import * as AspNetData from "devextreme-aspnet-data-nojquery";
 
 @Component({
   selector: 'app-cliente',
@@ -12,6 +14,13 @@ import { SalesServicesService } from 'src/app/_services/sales-services.service';
 export class ClienteComponent implements OnInit {
 
   constructor(private inventoryServices: SalesServicesService) {
+    this.dataSource = AspNetData.createStore({
+      key: "ClienteId",
+      loadUrl: environment.apiUrl + "sales/Cliente",
+      insertUrl: environment.apiUrl + "sales/Cliente",
+      updateUrl: environment.apiUrl + "sales/Cliente",
+      deleteUrl: environment.apiUrl + "sales/Cliente",     
+  });
     this.priority = [
       { name: 'High', value: 4 },
       { name: 'Urgent', value: 3 },
@@ -24,35 +33,10 @@ export class ClienteComponent implements OnInit {
   myForm: FormGroup;
   
   ngOnInit() {
-    this.myForm = new FormGroup({
-        nombre: new FormControl('', Validators.compose([Validators.required])),
-        fechaNacimiento: new FormControl('', Validators.compose([Validators.required]))
-    });
- 
-    this.inventoryServices.getCliente().subscribe(response=>    {
-      this.dataSource=response
-    }
-    );
+    
   }
 
   
 
-  onsubmit()
-  {
-    let cliente=new Cliente();
-    cliente.Nombres=this.myForm.get("nombre").value;
-    cliente.FechaNacimiento=parseFloat(this.myForm.get("fechaNacimiento").value);    
-    this.inventoryServices.createCliente(cliente).subscribe(response=>{
-      console.log(response);
-      if(response.length>0)
-      {
-        alert("Registro almacenado correctamente");
-        this.dataSource=this.dataSource=response; 
-      }
-      else{
-        alert("Error");
-      }
-    });
-  }
-
+  
 }

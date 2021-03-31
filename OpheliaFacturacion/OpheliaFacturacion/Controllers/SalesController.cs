@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using OpheliaFacturacion.Helpers;
 using OpheliaFacturacion.Model.Models;
 using OpheliaFacturacion.Services.interfaces;
@@ -29,10 +30,12 @@ namespace OpheliaFacturacion.Controllers
         #region Cliente
         [HttpPost]
         [Route("Cliente")]
-        public async Task<IActionResult> create(Cliente prmP)
+        public async Task<IActionResult> create([FromForm]string values)
         {
             try
             {
+                Cliente prmP = new Cliente();
+                JsonConvert.PopulateObject(values, prmP);
                 var response = await salesServices.createCliente(prmP);
                 return Ok(response);
             }
@@ -45,11 +48,13 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpPut]
         [Route("Cliente")]
-        public async Task<IActionResult> update(Cliente prmP)
+        public async Task<IActionResult> update([FromForm]int key, [FromForm]string values)
         {
             try
             {
-                var response = await salesServices.updateCliente(prmP);
+                Cliente prmP = new Cliente();
+                JsonConvert.PopulateObject(values, prmP);
+                var response = await salesServices.updateCliente(key,prmP);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -61,11 +66,11 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpDelete]
         [Route("Cliente")]
-        public async Task<IActionResult> delete(Cliente prmP)
+        public async Task<IActionResult> delete([FromForm]int key)
         {
             try
             {
-                var response = await salesServices.deleteCliente(prmP);
+                var response = await salesServices.deleteCliente(key);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -96,10 +101,12 @@ namespace OpheliaFacturacion.Controllers
         #region Factura
         [HttpPost]
         [Route("Factura")]
-        public async Task<IActionResult> createFactura(Factura prmP)
+        public async Task<IActionResult> createFactura([FromForm]string values)
         {
             try
             {
+                Factura prmP = new Factura();
+                JsonConvert.PopulateObject(values, prmP);
                 var response = await salesServices.createFactura(prmP);
                 return Ok(response);
             }
@@ -112,11 +119,13 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpPut]
         [Route("Factura")]
-        public async Task<IActionResult> updateFactura(Factura prmP)
+        public async Task<IActionResult> updateFactura([FromForm]int key, [FromForm]string values)
         {
             try
             {
-                var response = await salesServices.updateFactura(prmP);
+                Factura prmP = new Factura();
+                JsonConvert.PopulateObject(values, prmP);
+                var response = await salesServices.updateFactura(key,prmP);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -128,11 +137,11 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpDelete]
         [Route("Factura")]
-        public async Task<IActionResult> deleteFactura(Factura prmP)
+        public async Task<IActionResult> deleteFactura([FromForm]int key)
         {
             try
             {
-                var response = await salesServices.deleteFactura(prmP);
+                var response = await salesServices.deleteFactura(key);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -162,10 +171,12 @@ namespace OpheliaFacturacion.Controllers
         #region FacturaDetalle
         [HttpPost]
         [Route("FacturaDetalle")]
-        public async Task<IActionResult> createFacturaDetalle(FacturaDetalle prmP)
+        public async Task<IActionResult> createFacturaDetalle([FromForm]string values)
         {
             try
             {
+                FacturaDetalle prmP = new FacturaDetalle();
+                JsonConvert.PopulateObject(values, prmP);
                 var response = await salesServices.createFacturaDetalle(prmP);
                 return Ok(response);
             }
@@ -178,11 +189,13 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpPut]
         [Route("FacturaDetalle")]
-        public async Task<IActionResult> updateFacturaDetalle(FacturaDetalle prmP)
+        public async Task<IActionResult> updateFacturaDetalle([FromForm]int key, [FromForm]string values)
         {
             try
             {
-                var response = await salesServices.updateFacturaDetalle(prmP);
+                FacturaDetalle prmP = new FacturaDetalle();
+                JsonConvert.PopulateObject(values, prmP);
+                var response = await salesServices.updateFacturaDetalle(key,prmP);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -194,11 +207,11 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpDelete]
         [Route("FacturaDetalle")]
-        public async Task<IActionResult> deleteFacturaDetalle(FacturaDetalle prmP)
+        public async Task<IActionResult> deleteFacturaDetalle([FromForm]int key)
         {
             try
             {
-                var response = await salesServices.deleteFacturaDetalle(prmP);
+                var response = await salesServices.deleteFacturaDetalle(key);
                 return Ok(response);
             }
             catch (Exception ex)

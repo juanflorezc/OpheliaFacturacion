@@ -13,8 +13,14 @@ import { ProductoComponent } from './pages/producto/producto.component';
 import dxTextBox from 'devextreme/ui/text_box';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import dxSelectBox from 'devextreme/ui/select_box';
+import { DetalleFacturaComponent } from './pages/detalle-factura/detalle-factura.component';
 
 const routes: Routes = [
+  {
+    path: 'detalle-factura',
+    component: DetalleFacturaComponent,
+    canActivate: [ AuthGuardService ]
+  },
   {
     path: 'cliente',
     component: ClienteComponent,
@@ -81,6 +87,7 @@ const routes: Routes = [
     ReactiveFormsModule,DxSelectBoxModule ],
   providers: [AuthGuardService],
   exports: [RouterModule],
-  declarations: [HomeComponent, ProfileComponent, TasksComponent, ClienteComponent,ProductoComponent,FacturaComponent,InventarioComponent]
+  declarations: [HomeComponent, ProfileComponent, TasksComponent, ClienteComponent,ProductoComponent,
+    FacturaComponent,InventarioComponent, DetalleFacturaComponent]
 })
 export class AppRoutingModule { }

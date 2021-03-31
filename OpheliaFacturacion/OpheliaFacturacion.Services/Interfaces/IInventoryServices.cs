@@ -11,15 +11,15 @@ namespace OpheliaFacturacion.Services.interfaces
         #region productos
         Task<List<Producto>> getProduct();
         Task<List<Producto>> createProduct(Producto prmProducto);
-        Task<Producto> updateProduct(Producto prmProducto);
-        Task<Producto> deleteProduct(Producto prmProducto);
+        Task<Producto> updateProduct(int key, Producto prmProducto);
+        Task<Producto> deleteProduct(int key);
         #endregion
 
         #region inventario
         Task<List<Inventario>> getIntentario();
         Task<List<Inventario>> createIntentario(Inventario prmIntentario);
-        Task<Inventario> updateInventario(Inventario prmInventario);
-        Task<Inventario> deleteInventario(Inventario prmInventario);
+        Task<Inventario> updateInventario(int key, Inventario prmInventario);
+        Task<Inventario> deleteInventario(int key);
         #endregion
 
     }

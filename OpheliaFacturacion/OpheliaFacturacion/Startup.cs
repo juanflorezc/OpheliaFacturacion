@@ -43,7 +43,10 @@ namespace OpheliaFacturacion
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 options.JsonSerializerOptions.DictionaryKeyPolicy = null;
+                //options.JsonSerializerOptions.de = 1;
+                options.JsonSerializerOptions.IgnoreNullValues = true;
             });
+
             services.AddControllers();
         }
 

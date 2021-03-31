@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using OpheliaFacturacion.Helpers;
 using OpheliaFacturacion.Model.Models;
 using OpheliaFacturacion.Services.interfaces;
@@ -29,10 +31,13 @@ namespace OpheliaFacturacion.Controllers
         #region producto
         [HttpPost]
         [Route("Producto")]
-        public async Task<IActionResult> create(Producto prmP)
+        public async Task<IActionResult> create([FromForm]string values)
         {
             try
             {
+                //var values = form.Get("values");
+                Producto prmP = new Producto();
+                JsonConvert.PopulateObject(values, prmP);
                 var response = await invenotryServices.createProduct(prmP);
                 return Ok(response);
             }
@@ -45,11 +50,13 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpPut]
         [Route("Producto")]
-        public async Task<IActionResult> update(Producto prmP)
+        public async Task<IActionResult> update([FromForm]int key, [FromForm]string values)
         {
             try
             {
-                var response = await invenotryServices.updateProduct(prmP);
+                Producto prmP = new Producto();
+                JsonConvert.PopulateObject(values, prmP);
+                var response = await invenotryServices.updateProduct(key,prmP);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -61,11 +68,11 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpDelete]
         [Route("Producto")]
-        public async Task<IActionResult> delete(Producto prmP)
+        public async Task<IActionResult> delete([FromBody]int key)
         {
             try
             {
-                var response = await invenotryServices.deleteProduct(prmP);
+                var response = await invenotryServices.deleteProduct(key);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -90,15 +97,41 @@ namespace OpheliaFacturacion.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        
+
+        [HttpGet]
+        [Route("ProductoList")]
+        public async Task<IActionResult> getList()
+        {
+            try
+            {
+                var response = await invenotryServices.getProduct();
+                var returnList= from i in response
+                                select new
+                                {
+                                    Value = i.ProductoId,
+                                    Text = i.Nombre
+                                };
+                return Ok(returnList);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(LogEvents.ExeptionError, ex, "Error Exception");
+                return BadRequest(ex.ToString());
+            }
+        }
         #endregion
 
         #region Inventario
         [HttpPost]
         [Route("Inventario")]
-        public async Task<IActionResult> createInventario(Inventario prmP)
+        public async Task<IActionResult> createInventario([FromForm]string values)
         {
             try
-            {
+            {                
+                Inventario prmP = new Inventario();
+                JsonConvert.PopulateObject(values, prmP);
                 var response = await invenotryServices.createIntentario(prmP);
                 return Ok(response);
             }
@@ -111,11 +144,14 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpPut]
         [Route("Inventario")]
-        public async Task<IActionResult> updateInventario(Inventario prmP)
+        public async Task<IActionResult> updateInventario([FromForm]int key, [FromForm]string values)
         {
             try
             {
-                var response = await invenotryServices.updateInventario(prmP);
+                Inventario prmP = new Inventario();
+                JsonConvert.PopulateObject(values, prmP);
+                prmP.IntentarioId = key;
+                var response = await invenotryServices.updateInventario(key,prmP);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -127,11 +163,11 @@ namespace OpheliaFacturacion.Controllers
 
         [HttpDelete]
         [Route("Inventario")]
-        public async Task<IActionResult> deleteInventario(Inventario prmP)
+        public async Task<IActionResult> deleteInventario([FromBody] int key)
         {
             try
             {
-                var response = await invenotryServices.deleteInventario(prmP);
+                var response = await invenotryServices.deleteInventario(key);
                 return Ok(response);
             }
             catch (Exception ex)

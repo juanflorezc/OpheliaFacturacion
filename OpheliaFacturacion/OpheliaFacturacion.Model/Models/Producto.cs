@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -16,8 +17,9 @@ namespace OpheliaFacturacion.Model.Models
         public int ProductoId { get; set; }
         public string Nombre { get; set; }
         public double ValorUnitario { get; set; }
-
+        [JsonIgnore]
         public virtual ICollection<FacturaDetalle> FacturaDetalles { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Inventario> Inventarios { get; set; }
     }
 }

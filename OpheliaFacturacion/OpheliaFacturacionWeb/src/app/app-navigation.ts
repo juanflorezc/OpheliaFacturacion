@@ -21,6 +21,10 @@ export const navigation = [
         path: '/factura'
       },
       {
+        text: 'Detalle Facturas',
+        path: '/detalle-factura'
+      },
+      {
         text: 'Inventarios',
         path: '/inventario'
       }

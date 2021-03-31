@@ -11,22 +11,22 @@ namespace OpheliaFacturacion.Services.interfaces
         #region clientes
         Task<List<Cliente>> getCliente();
         Task<List<Cliente>> createCliente(Cliente prmCliente);
-        Task<Cliente> updateCliente(Cliente prmFactura);
-        Task<Cliente> deleteCliente(Cliente prmFactura);
+        Task<Cliente> updateCliente(int key, Cliente prmFactura);
+        Task<Cliente> deleteCliente(int prmFactura);
         #endregion
 
         #region Factura
         Task<List<Factura>> getFactura();
         Task<List<Factura>> createFactura(Factura prmFactura);
-        Task<Factura> updateFactura(Factura prmFactura);
-        Task<Factura> deleteFactura(Factura prmFactura);
+        Task<Factura> updateFactura(int key, Factura prmFactura);
+        Task<Factura> deleteFactura(int prmFactura);
         #endregion
 
         #region FacturaDEtalle
         Task<List<FacturaDetalle>> getFacturaDetalle();
         Task<List<FacturaDetalle>> createFacturaDetalle(FacturaDetalle prmFactura);
-        Task<FacturaDetalle> updateFacturaDetalle(FacturaDetalle prmFactura);
-        Task<FacturaDetalle> deleteFacturaDetalle(FacturaDetalle prmFactura);
+        Task<FacturaDetalle> updateFacturaDetalle(int key,FacturaDetalle prmFactura);
+        Task<FacturaDetalle> deleteFacturaDetalle(int prmFactura);
         #endregion
     }
 }
